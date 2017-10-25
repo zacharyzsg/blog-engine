@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'signup.css' %}"/>
+
+    <div class="signup-container" align="center">
+
+        <form method="post" class="signup"> {% csrf_token %}
+            <div>
+                <label for="id_username"></label>
+                <input type="text" name="email" placeholder="Email address" autofocus required
+                       id="id_username">
+            </div>
+
+            <div>
+                <label for="id_password1"></label>
+                <input type="password" name="password1" placeholder="Password" autofocus required
+                       id="id_password1">
+            </div>
+
+            <div>
+                <label for="id_password2"></label>
+                <input type="password" name="password2" placeholder="Confirm password" autofocus required
+                       id="id_password`">
+            </div>
+
+
+            <button type="submit">Sign Up</button>
+        </form>
+
+    </div>
+{% endblock %}
