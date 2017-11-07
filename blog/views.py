@@ -1,16 +1,31 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.http import HttpResponse
-from django.shortcuts import render
-from django.contrib.auth.decorators import login_required
-
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import user_passes_test
 # Create your views here.
-from rest_framework import viewsets
 
+from blog.forms import PostForm
 from blog.models import Post, Comment
 
 
-@login_required
+def is_superuser(user):
+    return user.is_superuser
+
+
 def home(request):
-    return render(request, 'home.html')
+    posts = Post.objects.all()
+    user = request.user
+    return render(request, 'home.html', {'posts': posts, 'user': user})
+
+
+@user_passes_test(is_superuser)
+def create_post(request):
+    if request.method == "POST":
+        form = PostForm(request.POST, user=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('home/')
+    else:
+        form = PostForm()
+    return render(request, 'create-post.html', {'form': form})
