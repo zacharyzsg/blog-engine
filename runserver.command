@@ -1,1 +1,3 @@
-python `dirname $0`/manage.py runserver
+cd `dirname $0`
+`dirname $0`/main &
+python manage.py runserver
