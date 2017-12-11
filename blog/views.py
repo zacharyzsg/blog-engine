@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import user_passes_test
 # Create your views here.
 
@@ -29,3 +29,8 @@ def create_post(request):
     else:
         form = PostForm()
     return render(request, 'create-post.html', {'form': form})
+
+
+def post_detail(request, pk):
+    post = get_object_or_404(Post, id=pk)
+    return render(request, 'post-detail.html', {'post': post})
