@@ -1,6 +1,20 @@
 {% extends "base.html" %}
 {% block content %}
+{% load static %}
+{% include "header.html" %}
+<link rel="stylesheet" type="text/css" href="{% static 'home.css' %}"/>
     <title>Home</title>
+    <div class="post-container">
+        {% for post in posts %}
+            <div class="post">
+                <div class="post__title">{{post.title}} - {{post.user.email}}</div>
+                <div>
+                    {{ post.content }}
+                </div>
+                
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}
 
-
+ 
